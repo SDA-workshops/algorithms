@@ -15,7 +15,7 @@ class ListNode:
         return self._next_node
 
     @next_node.setter
-    def next_node(self, new_node):
+    def next_node(self, new_node) -> None:
         self._next_node = new_node
 
     def __repr__(self) -> str:
@@ -55,7 +55,10 @@ class LinkedList:
         current.next_node = ListNode(key=key)
 
     def find(self, key: int) -> "ListNode":
-        pass
+        current = self.head
+        while current is not None and current.key != key:
+            current = current.next_node
+        return current
 
     def remove(self, key: int) -> None:
         current, prev = self.head, None
@@ -78,12 +81,19 @@ class LinkedList:
         return nodes
 
 
-if __name__ == "__main__":
+def test_find_existing_key():
     linked_list = LinkedList()
-    for key in range(10):
-        linked_list.append(key)
+    linked_list.append(42)
 
-    print(f"Before: {linked_list.get_nodes()}")
-    linked_list.remove(0)
-    linked_list.remove(1)
-    print(f"After: {linked_list.get_nodes()}")
+    assert linked_list.find(42) is not None
+
+
+def test_find_non_existing_key():
+    linked_list = LinkedList()
+
+    assert linked_list.find(42) is None
+
+
+if __name__ == "__main__":
+    test_find_existing_key()
+    test_find_non_existing_key()
