@@ -81,6 +81,27 @@ class LinkedList:
             current = current.next_node
         return nodes
 
+    def reverse(self):
+        current = self.head
+        prev_node = None
+        while current:
+            next_node = current.next_node
+            current.next_node = prev_node
+            prev_node = current
+            current = next_node
+        self._head = prev_node
+
+
+def test_reverse_linked_list():
+    linked_list = LinkedList()
+    for i in reversed(range(5)):
+        linked_list.append(i)
+
+    linked_list.reverse()
+
+    expected = [i for i in range(5)]
+    assert expected == [node.key for node in linked_list]
+
 
 def test_find_existing_key():
     linked_list = LinkedList()
@@ -98,3 +119,4 @@ def test_find_non_existing_key():
 if __name__ == "__main__":
     test_find_existing_key()
     test_find_non_existing_key()
+    test_reverse_linked_list()
