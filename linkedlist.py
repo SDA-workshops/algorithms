@@ -43,7 +43,8 @@ class LinkedList:
         return self._head
 
     def prepend(self, key: int) -> None:
-        self._head = ListNode(key=key, next_node=self._head)
+        new_node = ListNode(key=key, next_node=self._head)
+        self._head = new_node
 
     def append(self, key: int) -> None:
         if self.head is None:
