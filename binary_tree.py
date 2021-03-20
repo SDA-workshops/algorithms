@@ -15,6 +15,20 @@ class Node:
     def __repr__(self) -> str:
         return f"Node({self.key})"
 
+    def __iter__(self):
+        self._stack = [self]
+        return self
+
+    def __next__(self):
+        if len(self._stack) == 0:
+            raise StopIteration
+        node = self._stack.pop()
+        if node.left is not None:
+            self._stack.append(node.left)
+        if node.right is not None:
+            self._stack.append(node.right)
+        return node
+
     def append(self, key: int) -> None:
         if self.key is None:
             self.key = key
@@ -63,4 +77,5 @@ def create_binsearch_tree(root: Node, data: List[int]) -> Node:
 if __name__ == "__main__":
     data = [1, 2, 10, 9, 4, 10, 11, 100, -1]
     root = create_binsearch_tree(Node(key=None), data)
-    root.traverse()
+    for node in root:
+        print(node)
