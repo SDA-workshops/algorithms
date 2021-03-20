@@ -1,6 +1,3 @@
-import pytest
-
-
 def validate(sequence: str) -> bool:
     counter = 0
     for ch in sequence:
@@ -8,21 +5,17 @@ def validate(sequence: str) -> bool:
             counter += 1
         else:
             counter -= 1
-        if counter < 0:
-            return False
+            if counter < 0:
+                return False
     return counter == 0
 
 
-@pytest.mark.parametrize(
-    "case,expected",
-    [
-        ("(())", True),
-        ("(()())", True),
-        ("()()", True),
-        ("))((", False),
-        ("())", False),
-        ("((()", False)
-    ]
-)
-def test_validate(case: str, expected: bool) -> None:
-    assert validate(case) == expected
+if __name__ == "__main__":
+    assert validate("(()())") is True
+    assert validate("()()") is True
+    assert validate("(())") is True
+    assert validate("(()))") is False
+    assert validate("((())") is False
+    assert validate("))((") is False
+    assert validate("((((") is False
+    assert validate("))))") is False
